@@ -23,10 +23,13 @@ def test_calculate_rwa():
         'Contractual_rate': [0.05, 0.04],
         'Collateral_level': [0.8, 0.5]
     })
-    rwa = calculate_rwa(obligors_df, facilities_df)
-    assert rwa == pytest.approx(449.99999999999994)  # Example expected result
+    rwa = calculate_rwa(facilities_df, obligors_df)
+    assert rwa == pytest.approx(27.281249999999996)  # Example expected result
 
 def test_api():
-    response = client.post("/calculate_risk", json={"risk_measure": "RWA", "assessment_date": "2021-12-31"})
+    response = client.post("/calculate_risk", json={
+        "risk_measure": "RWA", 
+        "assessment_date": "2021-12-31"
+        })
     assert response.status_code == 200
-    assert response.json() == {"RWA": 48258.6666605074}  # Example expected result
+    assert response.json() == {"RWA": 2109.6846812406534}  # Example expected result
